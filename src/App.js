@@ -14,7 +14,7 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     books: [],
-    searchResults:[]
+    searchResults: []
   }
 
   componentDidMount() {
@@ -35,32 +35,32 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, shelf).then((data) => {
       this.setState(state => ({book: newState}))
     })
-    if (this.state.searchResults.length>0){
-      let newSearchResults = this.state.searchResults.map((x)=>{
-        if (x.id===book){
-          x.shelf=shelf
+    if (this.state.searchResults.length > 0) {
+      let newSearchResults = this.state.searchResults.map((x) => {
+        if (x.id === book) {
+          x.shelf = shelf
         }
-      })//endofMap
-      this.setState(state => ({book:newSearchResults}))
-    }//endofIf
+      }) //endofMap
+      this.setState(state => ({book: newSearchResults}))
+    } //endofIf
   }
 
-  searchTheAPI(query){
-    BooksAPI.search(query, 20).then(
-      (data)=>{this.setState(state => ({searchResults:data}))}
-    )
+  searchTheAPI(query) {
+    BooksAPI.search(query, 20).then((data) => {
+      this.setState(state => ({searchResults: data}))
+    })
   }
-clearStateFunction(){
 
-  this.setState({searchResults:[]});
-}
+  clearStateFunction() {
+    this.setState({searchResults: []});
+  }
 
   render() {
     //    console.log('from render',this.state.books)
     return (
       <div>
         <Route exact path='/' render={() => (<ListBooks books={this.state.books} onUpdate={(book, shelf) => (this.updateBook(book, shelf))}/>)}/>
-        <Route exact path='/search' render={() => (<SearchBooks books={this.state.searchResults} searchQuery={(query)=>(this.searchTheAPI(query))} onUpdate={(book, shelf) => (this.updateBook(book, shelf))} clearState={()=>(this.clearStateFunction())}/>)}/>
+        <Route exact path='/search' render={() => (<SearchBooks books={this.state.searchResults} searchQuery={(query) => (this.searchTheAPI(query))} onUpdate={(book, shelf) => (this.updateBook(book, shelf))} clearState={() => (this.clearStateFunction())}/>)}/>
       </div>
     ) //endOfReturn
   } //endofRender
