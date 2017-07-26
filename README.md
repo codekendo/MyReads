@@ -1,7 +1,7 @@
 # Udacity-react-Project 1
 This is a My Reads app for the Udacity React Course.
 
-#Getting Started
+# Getting Started
 
 To see the app in action.
 Clone the master branch 
