@@ -8,5 +8,5 @@ Clone the master branch
 
 In the root project.
 
-Type run npm install in the terminal, once the packages have been installed type npm start to start the app.  
+Type *npm install* in the terminal, once the packages have been installed type *npm start* to start the app.  
 
