@@ -7,41 +7,44 @@ import {Link} from 'react-router-dom'
 class SearchBooks extends React.Component {
   constructor(props) {
     super(props);
+    //giving fucntions the ability to change props
     this.handleChange = this.handleChange.bind(this);
     this.onKeyEnter = this.onKeyEnter.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
-
-
+    this.state = {
+      query: '',
+      wasEnterPressed: false
+    }
   }
+
   handleChange(event) {
     let bookID = event.target.getAttribute('data-book')
     let value = event.target.value
-
     //  console.log(bookID)
     // console.log(event)
     // console.log(this.props.onUpdate);
     this.props.onUpdate(bookID, value)
   }
+
   state = {
     query: '',
-    wasEnterPressed:false
+    wasEnterPressed: false
   }
 
   updateQuery = (event) => {
     this.setState({query: event.target.value.trim()})
-
-    if(this.props.books.length>0 && event.charCode !== 13 && this.state.wasEnterPressed === true){
+    if (this.props.books.length > 0 && event.charCode !== 13 && this.state.wasEnterPressed === true) {
       this.props.clearState();
 
-      this.setState({wasEnterPressed:false})
+      this.setState({wasEnterPressed: false})
     }
   }
 
-  onKeyEnter(event){
+  onKeyEnter(event) {
     //console.log(event.charCode);
-    if (event.charCode===13){
+    if (event.charCode === 13) {
       this.props.searchQuery(this.state.query);
-      this.setState({wasEnterPressed:true})
+      this.setState({wasEnterPressed: true})
     }
   }
 
@@ -54,17 +57,12 @@ class SearchBooks extends React.Component {
           <div className="search-books-bar">
             <Link to='/' className="close-search">Close</Link>
             <div className="search-books-input-wrapper">
-              <input type="text" placeholder="Search by title or author"
-              value={this.state.query}
-              onChange={(event) => this.updateQuery(event)}
-              onKeyPress={this.onKeyEnter}
-
-              />
+              <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={(event) => this.updateQuery(event)} onKeyPress={this.onKeyEnter}/>
             </div>
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-              {(this.state.query.length > 0 && this.state.wasEnterPressed===true && booksObject.length>10) && (booksObject.map((book) => (
+              {(this.state.query.length > 0 && this.state.wasEnterPressed === true && booksObject.length > 10) && (booksObject.map((book) => (
                 <li key={book.id}>
                   <div className='book'>
                     <div className="book-top">
@@ -87,13 +85,13 @@ class SearchBooks extends React.Component {
                             Read
                           </option>
                           <option value="none">
-                          {(book.shelf === 'none') && '\u2714'}
-                          None</option>
+                            {(book.shelf === 'none') && '\u2714'}
+                            None</option>
                         </select>
                       </div>
                     </div>
                     <div className="book-title">{book.title}</div>
-                    {(book.authors !== undefined)&&(book.authors.map((author, item) => (
+                    {(book.authors !== undefined) && (book.authors.map((author, item) => (
                       <div key={item} className="book-authors">{author}</div>
                     )))}
                   </div>
@@ -101,7 +99,6 @@ class SearchBooks extends React.Component {
               )))
 }
             </ol>
-
           </div>
         </div>
       </div>
