@@ -50,7 +50,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    //    console.log('from render',this.state.books)
+        console.log('from render',this.state.books)
     return (
       <div>
         <Route exact path='/' render={

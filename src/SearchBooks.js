@@ -9,14 +9,15 @@ class SearchBooks extends React.Component {
     super(props);
     //giving fucntions the ability to change props
     this.handleChange = this.handleChange.bind(this);
-    this.onKeyEnter = this.onKeyEnter.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
     this.state = {
-      query: '',
-      wasEnterPressed: false
+      query: ''
     }
   }
 
+  componentDidMount() {
+    this.props.clearState();
+}
   handleChange(event) {
     let bookID = event.target.getAttribute('data-book')
     let value = event.target.value
@@ -26,27 +27,16 @@ class SearchBooks extends React.Component {
     this.props.onUpdate(bookID, value)
   }
 
-  state = {
-    query: '',
-    wasEnterPressed: false
-  }
-
   updateQuery = (event) => {
     this.setState({query: event.target.value.trim()})
-    if (this.props.books.length > 0 && event.charCode !== 13 && this.state.wasEnterPressed === true) {
-      this.props.clearState();
-
-      this.setState({wasEnterPressed: false})
-    }
-  }
-
-  onKeyEnter(event) {
-    //console.log(event.charCode);
-    if (event.charCode === 13) {
+    if (this.state.query.length >3){
       this.props.searchQuery(this.state.query);
-      this.setState({wasEnterPressed: true})
+    }else if(this.state.query.length === 0){
+      this.props.clearState();
     }
+
   }
+
 
   render() {
     let booksObject = this.props.books
@@ -57,12 +47,12 @@ class SearchBooks extends React.Component {
           <div className="search-books-bar">
             <Link to='/' className="close-search">Close</Link>
             <div className="search-books-input-wrapper">
-              <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={(event) => this.updateQuery(event)} onKeyPress={this.onKeyEnter}/>
+              <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={(event) => this.updateQuery(event)}/>
             </div>
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-              {(this.state.query.length > 0 && this.state.wasEnterPressed === true && booksObject.length > 10) && (booksObject.map((book) => (
+              {(this.state.query.length > 0 && booksObject.length > 10) && (booksObject.map((book) => (
                 <li key={book.id}>
                   <div className='book'>
                     <div className="book-top">
