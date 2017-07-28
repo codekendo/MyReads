@@ -24,9 +24,7 @@ After you `cd ud-react-proj1` into the newly created directory install the depen
 npm install
 ```
 
-After you install the dependencies
-
-start the project usingThis is a demo for a course, I will not be accepting any pull requests. If you need to discuss an issuse please contact via [email](brandonwong@fastmail.com)
+After you install the dependencies type this to start the app
 
 ```
 npm start
