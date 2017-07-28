@@ -39,8 +39,7 @@ class SearchBooks extends React.Component {
 
 
   render() {
-    let booksObject = this.props.books
-
+    let booksObject = this.props.books;
     return (
       <div>
         <div className="search-books">

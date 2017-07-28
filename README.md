@@ -6,6 +6,12 @@ Features of this app is to search for books, and place them into 3 different boo
 
 # Quick Start
 
+If you have ran other myReads apps I recommend unregistering service react service workers. Type url below into chrome.
+
+```
+chrome://serviceworker-internals/
+````
+
 Clone the repo in your project folder
 
 ```
