@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css'
 import {Link} from 'react-router-dom'
+import _ from 'lodash'
 // import escapeRegExp from 'escape-string-regexp'
 // import * as BooksAPI from './BooksAPI'
 
@@ -9,7 +10,8 @@ class SearchBooks extends React.Component {
     super(props);
     //giving fucntions the ability to change props
     this.handleChange = this.handleChange.bind(this);
-    this.updateQuery = this.updateQuery.bind(this);
+    this.debounceFunction = this.debounceFunction.bind(this);
+    this.debounceFunction = _.debounce(this.debounceFunction, 500)
     this.state = {
       query: ''
     }
@@ -17,7 +19,7 @@ class SearchBooks extends React.Component {
 
   componentDidMount() {
     this.props.clearState();
-}
+  }
   handleChange(event) {
     let bookID = event.target.getAttribute('data-book')
     let value = event.target.value
@@ -27,16 +29,20 @@ class SearchBooks extends React.Component {
     this.props.onUpdate(bookID, value)
   }
 
-  updateQuery = (event) => {
-    this.setState({query: event.target.value.trim()})
-    if (this.state.query.length >3){
+  debounceFunction = (event) => {
+    if (this.state.query.length > 3) {
       this.props.searchQuery(this.state.query);
-    }else if(this.state.query.length === 0){
+    } else if (this.state.query.length === 0) {
       this.props.clearState();
     }
-
   }
 
+  updateQuery = (event) => {
+    event.persist();
+    this.setState({query: event.target.value.trim()})
+    this.debounceFunction(event);
+
+  }
 
   render() {
     let booksObject = this.props.books;
@@ -46,12 +52,12 @@ class SearchBooks extends React.Component {
           <div className="search-books-bar">
             <Link to='/' className="close-search">Close</Link>
             <div className="search-books-input-wrapper">
-              <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={(event) => this.updateQuery(event)}/>
+              <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={this.updateQuery.bind(this)}/>
             </div>
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-              {(this.state.query.length > 0 && booksObject.length > 10) && (booksObject.map((book) => (
+              {(this.state.query !== undefined && booksObject.length >3) && (booksObject.map((book) => (
                 <li key={book.id}>
                   <div className='book'>
                     <div className="book-top">
