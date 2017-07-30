@@ -32,8 +32,8 @@ npm start
 
 # Contributing
 
-This is a demo for a course, I will not be accepting any pull requests. 
-If you need to discuss an issuse please contact via [email](brandonwong@fastmail.com)
+This is a demo for a course, I will not be accepting any pull requests.
+If you need to discuss an issue please contact via [email](brandonwong@fastmail.com)
 
 # License
 MIT License
