@@ -6,7 +6,7 @@ This app is to search for books, and place them into 3 different book shelfs.
 
 # Quick Start
 
-If you have ran other myReads apps, please unregistering react service workers.
+If you have ran other myReads apps, please unregister react service workers.
 
 ```
 chrome://serviceworker-internals/
