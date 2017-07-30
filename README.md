@@ -1,12 +1,12 @@
 # Udacity-react-Project 1
 This is a react app called My Reads app for the Udacity React Course.
-Features of this app is to search for books, and place them into 3 different book shelfs.
+This app is to search for books, and place them into 3 different book shelfs.
 
 [Live Production Site](https://warm-ocean-79919.herokuapp.com/)
 
 # Quick Start
 
-If you have ran other myReads apps I recommend unregistering service react service workers. Type url below into chrome.
+If you have ran other myReads apps, please unregistering react service workers.
 
 ```
 chrome://serviceworker-internals/
@@ -18,15 +18,13 @@ Clone the repo in your project folder
 git clone https://github.com/codekendo/ud-react-proj1.git
 ```
 
-After you `cd ud-react-proj1` into the newly created directory install the dependencies using node and npm
+Install the dependencies
 
 ```
 npm install
 ```
 
-After you install the dependencies
-
-start the project usingThis is a demo for a course, I will not be accepting any pull requests. If you need to discuss an issuse please contact via [email](brandonwong@fastmail.com)
+Start the App
 
 ```
 npm start
@@ -34,7 +32,8 @@ npm start
 
 # Contributing
 
-This is a demo for a course, I will not be accepting any pull requests. If you need to discuss an issuse please contact via [email](brandonwong@fastmail.com)
+This is a demo for a course, I will not be accepting any pull requests. 
+If you need to discuss an issuse please contact via [email](brandonwong@fastmail.com)
 
 # License
 MIT License

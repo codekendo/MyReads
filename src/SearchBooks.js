@@ -41,11 +41,11 @@ class SearchBooks extends React.Component {
     event.persist();
     this.setState({query: event.target.value.trim()})
     this.debounceFunction(event);
-
   }
 
   render() {
-    let booksObject = this.props.books;
+    let booksObject = this.props.searchResults;
+    // console.log(booksObject);
     return (
       <div>
         <div className="search-books">

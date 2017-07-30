@@ -17,8 +17,7 @@ class BooksApp extends React.Component {
     })
   }
 
-
-/*
+  /*
 Notes:
 The searchBook Api is different than the
 getAll book api.
@@ -38,38 +37,94 @@ The books returned do not reflect the books being listed
       } else {
         return x
       }
-    })
+    }) //EndofMap
     // console.log(updatingStateOfBooks);
     this.setState(state => ({books: updatingStateOfBooks}))
   }
 
   updateSearchBook(bookID, shelfChange) {
     BooksAPI.update(bookID, shelfChange);
-    let bookObject;
+    let updateBookObjects = [];
     let oldState = this.state.books;
-    this.state.searchResults.map(function(x) {
+    // This changes the object in the
+    var newSearchResults = this.state.searchResults.map(function(x) {
       if (x.id === bookID) {
         x.shelf = shelfChange
-        bookObject = x;
+        updateBookObjects.push(x);
         return x;
       } else {
         return x;
       }
     }) //endofMap
-    // console.log('bookObject', bookObject);
+
+    this.setState(state => ({searchResults: newSearchResults}))
+    // console.log('updateBookObjects', updateBookObjects);
     // console.log('oldState', oldState)
-    let newState = oldState.concat(bookObject)
 
-    this.setState(state=> ({books: newState}))
+    /*
+if the book list has the same thing as the search results
+*/
 
-// console.log(this.state.books)    this.setState(state => ({searchResults: updatingSearchResults}))
+    oldState.map(function(x) {
+      if (x.id === bookID) {
+        x.shelf = shelfChange
+        return x;
+      } else {
+        return x
+      }
+    })
 
+    this.setState(state => ({books: oldState}))
+    // console.log(this.state.books)    this.setState(state => ({searchResults: updatingSearchResults}))
   }
+
+  // updateData(data) {
+  //   for (var x = 0; x > data.length; x++) {
+  //     console.log(x);
+  //     for (var y = 0; y > this.state.books.length; y++) {
+  //       if (data[x].id === this.state.books[y].id) {
+  //         data[x].shelf = this.state.books[y].shelf
+  //       }
+  //     }
+  //   }
+  //   return data;
+  // }
 
   searchTheAPI(query) {
     BooksAPI.search(query, 20).then((data) => {
+      // return this.updateData(data);
+      // console.log(this.state.books);
+      // let dataWrangle = data.map((x)=>{
+      //
+      //   for (let y of this.state.books) {
+      //     console.log(y.id)
+      //     console.log(x.id)
+      //     if (y.id === x.id) {
+      //       x.shelf = y.shelf
+      //       return x;
+      //     } else {
+      //       return x;
+      //     }
+      //   } //endofFor
+      // }) //endofmap
+      // console.log(dataWrangle);
+      //  this.setState(state => ({searchResults: dataWrangle}))
+      //  console.log(this.state.searchResults)
+
+      let dataWrangle = [];
+      for (let dataObject of data) {
+        for (let bookObject of this.state.books) {
+          if (bookObject.id === dataObject.id) {
+            dataObject.shelf = bookObject.shelf;
+          }
+        }
+        dataWrangle.push(dataObject)
+      }
+      return dataWrangle;
+    }).then((data) => {
       this.setState(state => ({searchResults: data}))
-    })
+
+    }) //endofThen
   }
 
   clearStateFunction() {
@@ -81,7 +136,7 @@ The books returned do not reflect the books being listed
     return (
       <div>
         <Route exact path='/' render={() => (<ListBooks books={this.state.books} onUpdateList={(book, shelf) => (this.updateBook(book, shelf))}/>)}/>
-        <Route exact path='/search' render={() => (<SearchBooks books={this.state.searchResults} searchQuery={(query) => (this.searchTheAPI(query))} onUpdate={(book, shelf) => (this.updateSearchBook(book, shelf))} clearState={() => (this.clearStateFunction())}/>)}/>
+        <Route exact path='/search' render={() => (<SearchBooks listOfBooks={this.state.books} searchResults={this.state.searchResults} searchQuery={(query) => (this.searchTheAPI(query))} onUpdate={(book, shelf) => (this.updateSearchBook(book, shelf))} clearState={() => (this.clearStateFunction())}/>)}/>
       </div>
     ) //endOfReturn
   } //endofRender
