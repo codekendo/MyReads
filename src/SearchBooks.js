@@ -9,8 +9,6 @@ class SearchBooks extends React.Component {
   constructor(props) {
     super(props);
     //giving fucntions the ability to change props
-    this.handleChange = this.handleChange.bind(this);
-    this.debounceFunction = this.debounceFunction.bind(this);
     this.debounceFunction = _.debounce(this.debounceFunction, 500)
     this.state = {
       query: ''
@@ -20,8 +18,8 @@ class SearchBooks extends React.Component {
   componentDidMount() {
     this.props.clearState();
   }
-  handleChange(event) {
-    let bookID = event.target.getAttribute('data-book')
+  handleChange = (event)=> {
+    let bookID = event.target.  getAttribute('data-book')
     let value = event.target.value
     //  console.log(bookID)
     // console.log(event)
@@ -30,7 +28,7 @@ class SearchBooks extends React.Component {
   }
 
   debounceFunction = (event) => {
-    if (this.state.query.length > 3) {
+    if (this.state.query.length > 2) {
       this.props.searchQuery(this.state.query);
     } else if (this.state.query.length === 0) {
       this.props.clearState();
@@ -86,7 +84,7 @@ class SearchBooks extends React.Component {
                       </div>
                     </div>
                     <div className="book-title">{book.title}</div>
-                    {(book.authors !== undefined) && (book.authors.map((author, item) => (
+                    {book.authors && (book.authors.map((author, item) => (
                       <div key={item} className="book-authors">{author}</div>
                     )))}
                   </div>

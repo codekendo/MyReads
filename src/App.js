@@ -17,14 +17,6 @@ class BooksApp extends React.Component {
     })
   }
 
-  /*
-Notes:
-The searchBook Api is different than the
-getAll book api.
-The books returned do not reflect the books being listed
-
-
-*/
   updateBook(book, shelf) {
     BooksAPI.update(book, shelf);
     // console.log(book);
