@@ -33,7 +33,7 @@ class BooksApp extends React.Component {
   updateSearchBook(bookId, shelfChange) {
     BooksAPI.update(bookId, shelfChange);
     let updateBookObjects = [];
-    let oldState = this.state.books;
+    let newListBookState = this.state.books;
     let newSearchResults = this.state.searchResults.map((x) => {
       if (x.id === bookId) {
         x.shelf = shelfChange
@@ -43,19 +43,28 @@ class BooksApp extends React.Component {
         return x
       }
     }) //endofMap
-
     this.setState(state => ({searchResults: newSearchResults}));
-    console.log()
 
-    oldState.map(function(x) {
+    let doesBookExistInListBooks = 0
+
+    newListBookState.map(function(x) {
       if (x.id === bookId) {
+        doesBookExistInListBooks++;
         x.shelf = shelfChange
         return x;
       } else {
         return x
       }
-    }) //Endof oldState.map
-    this.setState(state => ({books: oldState}))
+    }) //Endof newListBookState.map
+
+    if (doesBookExistInListBooks === 0) {
+      for (let oneUpdateBook of updateBookObjects) {
+        newListBookState.push(oneUpdateBook);
+      }
+    }
+
+    this.setState(state => ({books: newListBookState}))
+
   } //Endof updateSearchBook
 
   searchTheAPI(query) {
@@ -71,10 +80,8 @@ class BooksApp extends React.Component {
           dataWrangle.push(datum)
         }
       }
-      return dataWrangle;
-    }).then((data) => {
-      this.setState(state => ({searchResults: data}))
-    }) //endof then
+      return this.setState(state => ({searchResults: dataWrangle}));
+    })
   }
 
   clearStateFunction() {
