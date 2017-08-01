@@ -2,13 +2,10 @@ import React from 'react'
 import './App.css'
 import {Link} from 'react-router-dom'
 import _ from 'lodash'
-// import escapeRegExp from 'escape-string-regexp'
-// import * as BooksAPI from './BooksAPI'
 
 class SearchBooks extends React.Component {
   constructor(props) {
     super(props);
-    //giving fucntions the ability to change props
     this.debounceFunction = _.debounce(this.debounceFunction, 500)
     this.state = {
       query: ''
@@ -18,12 +15,10 @@ class SearchBooks extends React.Component {
   componentDidMount() {
     this.props.clearState();
   }
-  handleChange = (event)=> {
-    let bookID = event.target.  getAttribute('data-book')
+
+  handleChange = (event) => {
+    let bookID = event.target.getAttribute('data-book')
     let value = event.target.value
-    //  console.log(bookID)
-    // console.log(event)
-    // console.log(this.props.onUpdate);
     this.props.onUpdate(bookID, value)
   }
 
@@ -43,7 +38,6 @@ class SearchBooks extends React.Component {
 
   render() {
     let booksObject = this.props.searchResults;
-    // console.log(booksObject);
     return (
       <div>
         <div className="search-books">
@@ -55,7 +49,7 @@ class SearchBooks extends React.Component {
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-              {(this.state.query !== undefined && booksObject.length >3) && (booksObject.map((book) => (
+              {(this.state.query !== undefined && booksObject.length > 3) && (booksObject.map((book) => (
                 <li key={book.id}>
                   <div className='book'>
                     <div className="book-top">
@@ -89,8 +83,7 @@ class SearchBooks extends React.Component {
                     )))}
                   </div>
                 </li>
-              )))
-}
+              )))}
             </ol>
           </div>
         </div>

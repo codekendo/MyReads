@@ -4,21 +4,15 @@ import {Link} from 'react-router-dom'
 
 class ListBooks extends React.Component {
 
-  constructor(props) {
-    super(props);
-    }
+
   handleChange =(event)=> {
     let bookID = event.target.getAttribute('data-book')
     let value = event.target.value
-    //  console.log(bookID)
-    // console.log(event)
-    // console.log(this.props.onUpdate);
     this.props.onUpdateList(bookID, value)
   }
 
   render() {
     let booksObject = this.props.books
-    // console.log('bookObjectFrom ListBooks', booksObject)
     let wantToReads = booksObject.filter((book) => book.shelf === 'wantToRead')
     let currentlyReading = booksObject.filter((book) => book.shelf === 'currentlyReading')
     let read = booksObject.filter((book) => book.shelf === 'read')

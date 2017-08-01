@@ -38,25 +38,17 @@ class BooksApp extends React.Component {
     BooksAPI.update(bookID, shelfChange);
     let updateBookObjects = [];
     let oldState = this.state.books;
-    // This changes the object in the
     var newSearchResults = this.state.searchResults.map(function(x) {
       if (x.id === bookID) {
         x.shelf = shelfChange
         updateBookObjects.push(x);
-        return x;
+        return x
       } else {
-        return x;
+        return x
       }
     }) //endofMap
 
-    this.setState(state => ({searchResults: newSearchResults}))
-    // console.log('updateBookObjects', updateBookObjects);
-    // console.log('oldState', oldState)
-
-    /*
-if the book list has the same thing as the search results
-*/
-
+    this.setState(state => ({searchResults: newSearchResults}));
     oldState.map(function(x) {
       if (x.id === bookID) {
         x.shelf = shelfChange
@@ -64,45 +56,13 @@ if the book list has the same thing as the search results
       } else {
         return x
       }
-    })
+    }) //Endof oldState.map
 
     this.setState(state => ({books: oldState}))
-    // console.log(this.state.books)    this.setState(state => ({searchResults: updatingSearchResults}))
-  }
-
-  // updateData(data) {
-  //   for (var x = 0; x > data.length; x++) {
-  //     console.log(x);
-  //     for (var y = 0; y > this.state.books.length; y++) {
-  //       if (data[x].id === this.state.books[y].id) {
-  //         data[x].shelf = this.state.books[y].shelf
-  //       }
-  //     }
-  //   }
-  //   return data;
-  // }
+  } //Endof updateSearchBook
 
   searchTheAPI(query) {
     BooksAPI.search(query, 20).then((data) => {
-      // return this.updateData(data);
-      // console.log(this.state.books);
-      // let dataWrangle = data.map((x)=>{
-      //
-      //   for (let y of this.state.books) {
-      //     console.log(y.id)
-      //     console.log(x.id)
-      //     if (y.id === x.id) {
-      //       x.shelf = y.shelf
-      //       return x;
-      //     } else {
-      //       return x;
-      //     }
-      //   } //endofFor
-      // }) //endofmap
-      // console.log(dataWrangle);
-      //  this.setState(state => ({searchResults: dataWrangle}))
-      //  console.log(this.state.searchResults)
-
       let dataWrangle = [];
       for (let dataObject of data) {
         for (let bookObject of this.state.books) {
