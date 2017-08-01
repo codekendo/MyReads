@@ -2,8 +2,9 @@ import React from 'react'
 import './App.css'
 
 class BooksGrid extends React.Component{
-
-  constructor(props){
+render(){
+  let booksObject = this.props.books
+  return (
     <ol className="books-grid">
       {(booksObject) && (booksObject.map((book) => (
         <li key={book.id}>
@@ -13,9 +14,10 @@ class BooksGrid extends React.Component{
                 width: 128,
                 height: 193,
                 backgroundImage: `url(${book.imageLinks.thumbnail})`
-              }}></div>
+              }}>
+              </div>
               <div className="book-shelf-changer">
-                <select onChange={this.handleChange} data-book={book.id} value={book.shelf}>
+                <select onChange={this.props.onChangeProp} data-book={book.id} value={book.shelf}>
                   <option value="none" disabled>Move to...</option>
                   <option value="currentlyReading">{(book.shelf === 'currentlyReading') && '\u2714'}
                     Currently Reading</option>
@@ -43,7 +45,9 @@ class BooksGrid extends React.Component{
     ))}
     </ol>
 
-  }
-}//End of Class
+  )
+}//Endof Render
+
+}//Endof Class
 
 export default BooksGrid
