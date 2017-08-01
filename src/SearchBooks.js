@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 import _ from 'lodash'
 import BooksGrid from './BooksGrid'
 
-
 class SearchBooks extends React.Component {
   constructor(props) {
     super(props);
@@ -55,7 +54,6 @@ class SearchBooks extends React.Component {
         </div>
       </div>
     )
-
   }
 }
 

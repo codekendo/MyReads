@@ -19,9 +19,6 @@ class BooksApp extends React.Component {
 
   updateBook(book, shelf) {
     BooksAPI.update(book, shelf);
-    // console.log(book);
-    // console.log(shelf);
-    // console.log(this.state.books);
     let updatingStateOfBooks = this.state.books.map((x) => {
       if (x.id === book) {
         x.shelf = shelf;
@@ -30,16 +27,15 @@ class BooksApp extends React.Component {
         return x
       }
     }) //EndofMap
-    // console.log(updatingStateOfBooks);
     this.setState(state => ({books: updatingStateOfBooks}))
   }
 
-  updateSearchBook(bookID, shelfChange) {
-    BooksAPI.update(bookID, shelfChange);
+  updateSearchBook(bookId, shelfChange) {
+    BooksAPI.update(bookId, shelfChange);
     let updateBookObjects = [];
     let oldState = this.state.books;
-    var newSearchResults = this.state.searchResults.map(function(x) {
-      if (x.id === bookID) {
+    let newSearchResults = this.state.searchResults.map((x) => {
+      if (x.id === bookId) {
         x.shelf = shelfChange
         updateBookObjects.push(x);
         return x
@@ -49,34 +45,36 @@ class BooksApp extends React.Component {
     }) //endofMap
 
     this.setState(state => ({searchResults: newSearchResults}));
+    console.log()
+
     oldState.map(function(x) {
-      if (x.id === bookID) {
+      if (x.id === bookId) {
         x.shelf = shelfChange
         return x;
       } else {
         return x
       }
     }) //Endof oldState.map
-
     this.setState(state => ({books: oldState}))
   } //Endof updateSearchBook
 
   searchTheAPI(query) {
     BooksAPI.search(query, 20).then((data) => {
       let dataWrangle = [];
-      for (let dataObject of data) {
-        for (let bookObject of this.state.books) {
-          if (bookObject.id === dataObject.id) {
-            dataObject.shelf = bookObject.shelf;
+      if (data.error !== 'empty query') {
+        for (let datum of data) {
+          for (let book of this.state.books) {
+            if (book.id === datum.id) {
+              datum.shelf = book.shelf;
+            }
           }
+          dataWrangle.push(datum)
         }
-        dataWrangle.push(dataObject)
       }
       return dataWrangle;
     }).then((data) => {
       this.setState(state => ({searchResults: data}))
-
-    }) //endofThen
+    }) //endof then
   }
 
   clearStateFunction() {
@@ -84,7 +82,6 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    // console.log('from render',this.state.books)
     return (
       <div>
         <Route exact path='/' render={() => (<ListBooks books={this.state.books} onUpdateList={(book, shelf) => (this.updateBook(book, shelf))}/>)}/>

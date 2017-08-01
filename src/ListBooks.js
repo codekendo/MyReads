@@ -6,7 +6,6 @@ import BooksGrid from './BooksGrid'
 
 class ListBooks extends React.Component {
 
-
   handleChange =(event)=> {
     let bookID = event.target.getAttribute('data-book')
     let value = event.target.value
