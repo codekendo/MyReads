@@ -23,7 +23,7 @@ class SearchBooks extends React.Component {
     this.props.onUpdate(bookID, value)
   }
 
-  debounceFunction = (event) => {
+  debounceFunction = () => {
     if (this.state.query.length > 2) {
       this.props.searchQuery(this.state.query);
     } else if (this.state.query.length === 0) {
@@ -34,7 +34,7 @@ class SearchBooks extends React.Component {
   updateQuery = (event) => {
     event.persist();
     this.setState({query: event.target.value.trim()})
-    this.debounceFunction(event);
+    this.debounceFunction();
   }
 
   render() {
