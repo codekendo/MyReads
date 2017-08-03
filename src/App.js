@@ -42,7 +42,8 @@ class BooksApp extends React.Component {
       } else {
         return x
       }
-    }) //endofMap
+    }) //endofMap// eslint-disable-line
+
     this.setState(state => ({searchResults: newSearchResults}));
 
     let doesBookExistInListBooks = 0

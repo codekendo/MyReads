@@ -3,10 +3,11 @@ import './App.css'
 
 class BooksGrid extends React.Component{
 render(){
-  let booksObject = this.props.books
+  let booksArray = this.props.books
+  console.log(booksArray);
   return (
     <ol className="books-grid">
-      {(booksObject) && (booksObject.map((book) => (
+      {(booksArray) && (booksArray.map((book) => (
         <li key={book.id}>
           <div className='book'>
             <div className="book-top">
