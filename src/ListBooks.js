@@ -30,20 +30,14 @@ class ListBooks extends React.Component {
           </div>
           <div className="list-books-content">
             <div>
-
-
-
-
             {Object.keys(shelves).map((shelfkey)=>{
               let currentlyReading = booksObject.filter((book) => book.shelf === 'currentlyReading')
               let wantToReads = booksObject.filter((book) => book.shelf === 'wantToRead')
               let read = booksObject.filter((book) => book.shelf === 'read')
-
               return (
                 <div className='bookshelf' key={shelfkey}>
                   <h2 className='bookshelf-title'>{shelves[shelfkey]}</h2>
                   <div className='bookshelf-books'>
-
                     <BooksGrid
                       books={booksObject.filter(
                         (x) => {
@@ -53,22 +47,10 @@ class ListBooks extends React.Component {
                       )}
                       onChangeProp={this.handleChange}
                     />
-
                   </div>
                 </div>
               )
             })}
-
-
-
-
-
-
-
-
-
-
-
             </div>
           </div>
           <div className="open-search">
