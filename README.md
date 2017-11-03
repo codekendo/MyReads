@@ -1,4 +1,4 @@
-# Udacity-react-Project 1
+# UD-MyReads
 This is a react app called My Reads app for the Udacity React Course.
 This app is to search for books, and place them into 3 different book shelfs.
 
